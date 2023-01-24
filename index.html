@@ -114,12 +114,8 @@ wj=Kg.substring(0,Eh),tc=Kg.substring(Eh+1);wj&&tc&&(Jg[wj]=tc)}}oc=Jg}}Fd=void 
 		  app: 'Node_App'
 		});
 		 const Provider = SplunkRum.provider;
-    var tracer=Provider.getTracer('appModuleLoader');
-		
-		
-		
-		
-		const span = tracer.startSpan('test.module.load1', {
+	var tracer=Provider.getTracer('appModuleLoader');		
+	const span = tracer.startSpan('test.module.load1', {
     attributes: {
         'workflow.name': 'test.module.load1'
     }
