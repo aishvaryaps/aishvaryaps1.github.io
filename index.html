@@ -1,15 +1,10 @@
 <!doctype html>
 <html>
-
     <head>
-
         <meta charset="utf-8" />
         <title>Secret Santa Generator Demo</title>
-
         <script src="vendors/Lodash-3.10.1.js"></script>
-        <script src="vendors/Cryptojs.aes-3.1.2.js"></script>
-	    
-	    
+	<script src="vendors/Cryptojs.aes-3.1.2.js"></script>  
 	<!-- 
 	    <script>
   (function(n,i,v,r,s,c,x,z){x=window.AwsRumClient={q:[],n:n,i:i,v:v,r:r,c:c};window[n]=function(c,p){x.q.push({c:c,p:p});};z=document.createElement('script');z.async=true;z.src=s;document.head.insertBefore(z,document.head.getElementsByTagName('script')[0]);})(
@@ -120,14 +115,8 @@ wj=Kg.substring(0,Eh),tc=Kg.substring(Eh+1);wj&&tc&&(Jg[wj]=tc)}}oc=Jg}}Fd=void 
         'workflow.name': 'test.module.load1'
     }
 });
-
 //  time passes with custom business logic for example checkout, add to cart etc
-
 span.end();
-		
-		
-		
-		
 	</script> 
 	<!--
 <script charset="UTF-8" type="text/javascript">
@@ -143,9 +132,7 @@ window["adrum-start-time"] = new Date().getTime();
 })(window["adrum-config"] || (window["adrum-config"] = {}));
 </script>
 <script src="//cdn.appdynamics.com/adrum/adrum-21.7.0.3493.js"></script>
-
-	   
-	    <script
+     <script
     src="https://www.datadoghq-browser-agent.com/datadog-rum-v4.js"
     type="text/javascript">
 </script>
@@ -168,38 +155,28 @@ window["adrum-start-time"] = new Date().getTime();
     window.DD_RUM.startSessionReplayRecording();
 </script> -->
         <style>
-
             * {
                 box-sizing: border-box;
             }
-
             html, body, .main {
                 margin: 0;
-
                 width: 100%;
                 height: 100%;
-
                 padding: 0;
             }
-
             body {
                 background-image: url(assets/santa1.png);
                 background-position: bottom right;
                 background-repeat: no-repeat;
-
                 font-family: 'Comic Sans MS';
             }
-
             .main {
                 display: flex;
             }
-
             .part {
                 display: flex;
                 flex-direction: column;
-
                 padding: 20px;
-
                 flex: 1;
             }
 
@@ -209,60 +186,43 @@ window["adrum-start-time"] = new Date().getTime();
 
             .instructions a {
                 text-decoration: none;
-
                 color: #0CB50C;
             }
-
             .input {
                 display: block;
                 align-self: stretch;
-
                 width: 100%;
                 flex: auto;
-
                 border: 10px solid #0CB50C;
                 border-radius: 10px;
-
                 padding: 15px;
-
                 background-color: rgba(255, 255, 255, .7);
                 outline: none;
             }
 
             .generate {
                 display: block;
-
                 margin-top: 20px;
-
                 flex: none;
                 height: 100px;
-
                 border: 10px solid #0CB50C;
                 border-radius: 10px;
-
                 font-family: inherit;
                 font-size: 30px;
-
                 background-color: #EA1212;
                 color: #FFFFFF;
             }
 
             .generate:focus {
                 border-color: #E6E020;
-
                 outline: none;
             }
-
             .result {
                 margin-top: 20px;
-
                 flex: none;
-
                 border: 10px solid #E6E020;
                 border-radius: 10px;
-
                 padding: 15px;
-
                 background: #FFFFFF;
             }
 
@@ -282,129 +242,89 @@ window["adrum-start-time"] = new Date().getTime();
 
             .result-table {
                 table-layout: fixed;
-
                 width: 100%;
             }
 
             .result-name {
                 width: 30%;
-
                 padding: 5px 8px;
             }
 
             .result-link {
                 width: 100%;
                 overflow: hidden;
-
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
-
         </style>
-
     </head>
-
     <body>
-
         <div class="main">
-
             <div class="part" style="overflow-y: auto">
                 <div class="instructions">
                     <h3><img src="assets/mistletoe.png" style="vertical-align: middle" /> ACP Service Assuarance team celebrates Secret Santa </h3>
-                    <p>Ho ho ho! Merry Christmas! I am sure that you are fully active to enjoy the Christmas holidays with full zeal and zest</p>
-                    
+                    <p>Ho ho ho! Merry Christmas! I am sure that you are fully active to enjoy the Christmas holidays with full zeal and zest</p>                    
                     <h4>To make it better participate in the game and be a Secret Santa for your colleagues</h4>
                     <p>We help you generate your secret santa pairings. Courier some fun gifts this year, and make yourself and others happy</p>
                 </div>
             </div>
-
             <form id="form" class="part">
                 <textarea id="input" class="input" autofocus></textarea>
                 <button type="submit" class="generate">Generate your pairings team</button>
                 <div id="result" class="result none"></div>
             </form>
-
         </div>
-
-        <script id="input-placeholder" type="text/placeholder">
-        
+        <script id="input-placeholder" type="text/placeholder">        
         </script>
-
     </body>
-
     <script>
-
       function isAmazonEnabled() {
-
           const checkBox = document.getElementById('amazon');
-
           return checkBox ? checkBox.checked : false;
-
       }
 
       function persist() {
-
           if ( ! window.localStorage )
               return ;
-
           var amazon = isAmazonEnabled();
           var content = document.getElementById( 'input' ).value;
-
           window.localStorage.setItem( 'amazon', amazon );
           window.localStorage.setItem( 'input', content );
 
       }
 
       function restore() {
-
           if ( ! window.localStorage )
               return ;
-
           var amazon = window.localStorage.getItem( 'amazon' );
           var content = window.localStorage.getItem( 'input' );
-
           if (typeof amazon === 'undefined')
               amazon = true;
-
           if (typeof content === 'undefined')
               content = '';
-
           if ( document.getElementById( 'amazon' ) )
               document.getElementById( 'amazon' ).checked = amazon;
-
           document.getElementById( 'input' ).value = content;
-
       }
 
       function reset() {
-
           var result = document.getElementById( 'result' );
-
           result.classList.add( 'none' );
           result.classList.remove( 'error' );
-
       }
 
       function error(text) {
-
           var result = document.getElementById( 'result' );
-
           result.classList.remove( 'none' );
           result.classList.add( 'error' );
-
           result.innerText = text;
-
       }
 
       function success( pairings ) {
-
           var result = document.getElementById( 'result' );
-
           result.classList.remove( 'none' );
           result.classList.remove( 'error' );
-
           result.innerHTML = '';
-
           var table = document.createElement( 'table' );
           table.className = 'result-table';
           result.appendChild( table );
@@ -442,7 +362,7 @@ window["adrum-start-time"] = new Date().getTime();
 
               tdName.innerText = name;
 
-              link.addEventListener( 'click', protect );
+              //link.addEventListener( 'click', protect );
               link.setAttribute( 'data-name', name );
               link.href = window.location.protocol + '//' + window.location.host + pairingPath + pairingQueryString;
               link.target = '_blank';
